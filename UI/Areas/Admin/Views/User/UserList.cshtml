@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+@model List<DTO.UserDTO>
+<section class="content-header">
+    <h1>Meta List</h1>
+    <ol class="breadcrumb float-sm-left">
+        <li class="breadcrumb-item"><a>Admin</a></li>
+        <li class="breadcrumb-item"><a>User</a></li>
+        <li class="breadcrumb-item"><a>User List</a></li>
+    </ol>
+</section>
+<br />
+@if (DTO.UserStatic.isAdmin)
+{
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary" onclick="window.location.href='/Admin/User/AddUser/'">Add User</button>
+    </div>
+}
+
+
+<div class="card">
+
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>User Name</th>
+                    <th>Image</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+
+                    <tr id="a_@item.ID">
+                        <td>@item.Name</td>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            <img style="width: 100px; height: 60px;" src="~/Areas/Admin/Content/UserImage/@item.Imagepath" />
+                        </td>
+                        <td align="center" valign="middle">
+                            <a href="/Admin/User/UpdateUser/@item.ID">
+                                <br />
+                                <img style="width: 40px; height: 40px;margin-left:20px; transform: translate(-50%, -50%);" src="~/Areas/Admin/Content/Icon/update-icon.png" />
+
+                            </a>
+                        </td>
+                        <td align="center" valign="middle">
+                            <a href="#">
+                                <br />
+                                <img style="width: 40px; height: 40px; margin-left: 20px; transform: translate(-50%, -50%); " src="~/Areas/Admin/Content/Icon/Delete-icon.png" onclick="AskQuestion('/Admin/User/DeleteUser/', @item.ID)" />
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            }
+
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>User Name</th>
+                    <th>Image</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    @Html.Partial("~/Areas/Admin/Views/Shared/ModalMessage.cshtml")
+    <!-- /.card-body -->
+</div>
+<script src="~/Areas/Admin/Content/JS/DeleteRecord.js"></script>
+
+<!-- /.card -->

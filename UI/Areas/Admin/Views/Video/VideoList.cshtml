@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "VideoList";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+@model List<DTO.VideoDTO>
+<section class="content-header">
+    <h1>Video List</h1>
+    <ol class="breadcrumb float-sm-left">
+        <li class="breadcrumb-item"><a>Admin</a></li>
+        <li class="breadcrumb-item"><a>Video</a></li>
+        <li class="breadcrumb-item"><a>Video List</a></li>
+    </ol>
+</section>
+<br />
+<div class="card-footer">
+    <button type="submit" class="btn btn-primary" onclick="window.location.href='/Admin/Video/AddVideo/'">Add Video</button>
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Video Path</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+
+                    <tr id="a_@item.ID">
+                        <td>@item.Title</td>
+                        <td>
+                            @item.OriginalVideoPath
+                        </td>
+
+                        <td align="center" valign="middle">
+                            <a href="/Admin/Video/UpdateVideo/@item.ID">
+                                <br />
+                                <img style="width: 40px; height: 40px;margin-left:20px; transform: translate(-50%, -50%);" src="~/Areas/Admin/Content/Icon/update-icon.png" />
+                            </a>
+                        </td>
+                        <td align="center" valign="middle">
+                            <a href="#">
+                                <br />
+                                <img style="width: 40px; height: 40px; margin-left: 20px; transform: translate(-50%, -50%); " src="~/Areas/Admin/Content/Icon/Delete-icon.png" onclick="AskQuestion('/Admin/Video/DeleteVideo/', @item.ID)" /> 
+                            </a>
+                        </td>
+                    </tr>
+
+
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Title</th>
+                    <th>Video Path</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    @Html.Partial("~/Areas/Admin/Views/Shared/ModalMessage.cshtml")
+    <!-- /.card-body -->
+</div>
+<script src="~/Areas/Admin/Content/JS/DeleteRecord.js"></script>
+<!-- /.card -->
